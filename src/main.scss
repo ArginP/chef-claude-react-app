@@ -24,6 +24,7 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: #FAFAF8;
 }
 
 .header {
@@ -49,6 +50,62 @@ html, body {
       font-size: rem(32);
       line-height: 60px;
       letter-spacing: -.05em;
+    }
+  }
+}
+
+main.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 67px 30px;
+  box-sizing: border-box;
+
+  .main-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    form.main-form {
+      display: flex;
+      width: 100%;
+      height: 38px;
+      justify-content: space-between;
+
+      gap: 12px;
+      flex-grow: 1;
+      max-width: 800px;
+
+
+      .main-form-input {
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-left: 13px;
+        font-family: Inter, sans-serif;
+
+        &::placeholder {
+
+          font-size: rem(14);
+          color: #6B7280;
+        }
+      }
+
+      .main-form-btn {
+        width: 183px;
+        height: 100%;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-family: Inter, sans-serif;
+        font-size: rem(14);
+        font-weight: 500;
+      }
     }
   }
 }
