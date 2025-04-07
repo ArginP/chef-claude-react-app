@@ -2,21 +2,29 @@ import { useState } from "react";
 import SuggestedRecipe from "./SuggestedRecipe.jsx";
 import GenerateRecipe from "./GenerateRecipe.jsx";
 import MainForm from "./MainForm.jsx";
+import IngredientsList from "./IngredientsList.jsx";
+import { getRecipeFromMistral } from "./api.js"
 
 export default function MainApp() {
-    const [ingredients, setIngredients] = useState([]);
-    const [isRecipeShown, setIsRecipeShown] = useState(false);
+    const [ingredients, setIngredients] = useState(["Макароны", "Томаты", "Сыр", "Масло"]);
+    const [suggestedRecipe, setSuggestedRecipe] = useState(null);
 
     function addIngredient(formData) {
-
         const newIngredient = formData.get("ingredient");
         if (newIngredient.trim()) {
             setIngredients(prevIngredients => [...prevIngredients, newIngredient]);
         }
     }
 
-    function toggleRecipeShown() {
-        isRecipeShown ? setIsRecipeShown(false) : setIsRecipeShown(true);
+    function getRecipe() {
+        console.log("sent a recipe");
+        getRecipeFromMistral(ingredients)
+            .then(response => {
+                setSuggestedRecipe(response);
+                console.log("got a recipe");
+                console.log(response);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -26,18 +34,15 @@ export default function MainApp() {
 
                     <MainForm handleClick={addIngredient} />
 
-                    {!!ingredients.length && <section className="ingredients-container">
-                        <h2>Ингридиенты в наличии:</h2>
-                        <ul className="ingredients-list">
-                        {ingredients.map((ingredient) => (
-                            <li className="ingredient" key={ingredient}>{ingredient}</li>
-                        ))}
-                        </ul>
-                    </section>}
+                    {!!ingredients.length && <IngredientsList
+                        ingredients={ingredients}
+                    />}
 
-                    {ingredients.length > 3 && <GenerateRecipe handleClick={toggleRecipeShown} />}
+                    {ingredients.length > 3 && <GenerateRecipe handleClick={getRecipe} />}
 
-                    {!!isRecipeShown && <SuggestedRecipe/>}
+                    {!!suggestedRecipe && <SuggestedRecipe
+                        suggestedRecipe={suggestedRecipe}
+                    />}
 
                 </div>
             </main>
