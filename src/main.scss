@@ -189,5 +189,28 @@ main.main {
         }
       }
     }
+
+    .suggested-recipe-container {
+      line-height: rem(28);
+      font-size: 1.125rem;
+      font-weight: 400;
+      margin-top: rem(60);
+
+      h2 {
+        margin: 0;
+        font-size: rem(30);
+        line-height: rem(38);
+        font-weight: 600;
+      }
+
+      .suggested-recipe {
+        color: #475467;
+      }
+
+      .suggested-recipe ul li,
+      .suggested-recipe ol li {
+        margin-bottom: rem(8);
+      }
+    }
   }
 }
