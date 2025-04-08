@@ -190,6 +190,14 @@ main.main {
       }
     }
 
+    .loading {
+      line-height: rem(28);
+      font-size: rem(30);
+      font-weight: 600;
+      margin-top: rem(60);
+      color: #475467;
+    }
+
     .suggested-recipe-container {
       line-height: rem(28);
       font-size: 1.125rem;

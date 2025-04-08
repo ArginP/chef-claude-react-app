@@ -3,11 +3,13 @@ import SuggestedRecipe from "./SuggestedRecipe.jsx";
 import GenerateRecipe from "./GenerateRecipe.jsx";
 import MainForm from "./MainForm.jsx";
 import IngredientsList from "./IngredientsList.jsx";
+import Loading from "./Loading.jsx";
 import { getRecipeFromMistral } from "./api.js"
 
 export default function MainApp() {
     const [ingredients, setIngredients] = useState(["Макароны", "Томаты", "Сыр", "Масло"]);
     const [suggestedRecipe, setSuggestedRecipe] = useState(null);
+    const [isLoadingRecipe, setIsLoadingRecipe] = useState(false);
     const recipeSection = useRef(null);
 
     function addIngredient(formData) {
@@ -19,6 +21,9 @@ export default function MainApp() {
 
     function getRecipe() {
         console.log("sent a recipe");
+        recipeSection.current.scrollIntoView({ behavior: "smooth" });
+        setIsLoadingRecipe(true);
+
         getRecipeFromMistral(ingredients)
             .then(response => {
                 setSuggestedRecipe(response);
@@ -30,6 +35,7 @@ export default function MainApp() {
 
     useEffect(() => {
         if (suggestedRecipe && recipeSection.current) {
+            setIsLoadingRecipe(false);
             recipeSection.current.scrollIntoView({ behavior: "smooth" });
         }
 
@@ -51,6 +57,8 @@ export default function MainApp() {
                             ref={recipeSection}
                             handleClick={getRecipe}
                         />}
+
+                    {isLoadingRecipe && <Loading/>}
 
                     {!!suggestedRecipe && <SuggestedRecipe
                         suggestedRecipe={suggestedRecipe}
