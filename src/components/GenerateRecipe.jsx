@@ -2,7 +2,10 @@ export default function GenerateRecipe(props) {
     return (
         <>
             <section className="generate-recipe-container">
-                <div className="generate-recipe-container-left">
+                <div
+                    ref={props.ref}
+                    className="generate-recipe-container-left"
+                >
                     <h3>Готовы создать рецепт?</h3>
                     <p>Сгенерировать рецепт из ингридинтов.</p>
                 </div>
